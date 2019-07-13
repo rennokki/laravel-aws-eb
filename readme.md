@@ -93,3 +93,22 @@ For example, this is the pricing history for a `r5.large` instance type:
 We can clearly see that the price at a point was `$0.5` while the on-demand price is `$0.12`. We can go easily, without risk, with a value of `0.6` for our variable. The safest value can be `0.1260` since it can't go higher, but there is still risk of termination if AWS decides that the Spot Instances may be used for something at a certain point.
 
 Rely on Spot Instances only for fault-tolerant or batch jobs/workload, like queues for a broadcasting.
+
+# Deploying with AWS EB CLI
+To deploy to the EB environment, you have two choices:
+* Archive the ZIP by your own and upload it.
+* Pull from git, and use AWS EB CLI in the current folder (with no additional ZIP-ing)
+
+AWS EB CLI make use of `.gitignore` and `.ebignore`. The only pre-configuration you need is to add the following environment variables
+to your CI/CD machine:
+* `AWS_ACCESS_KEY_ID`
+* `AWS_SECRET_ACCESS_KEY`
+* `AWS_EB_REGION`
+
+If you use a dockerized CI/CD pipeline (like Gitlab CI), you can make use of the `coxauto/aws-ebcli:latest` image. The following commands let you deploy an app on a certain environment within Gitlab CI on tag creation, for example:
+```bash
+$ git checkout $CI_COMMIT_TAG
+$ eb init --region=$AWS_EB_REGION --platform=php [project-name]
+$ eb use [environment-name]
+$ eb deploy [environment-name] --label=$CI_COMMIT_TAG
+```
