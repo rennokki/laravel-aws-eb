@@ -11,10 +11,10 @@ The sample configuration comes with:
 Download the configuration files and drop the `.ebextensions` folder directly in your project root.
 
 # AWS EB Mainframes
-AWS EB has some tricky parts which i'm going to explain:
+AWS EB has some tricky parts which I'm going to explain:
 * The main folders are `/var/app/ondeck` (before the deploy) and `/var/app/current` which is the current configuration.
-* Each deploy make you lose everything you have in the `current` folder. Do not rely on local storage, use S3 instead with CloudFront to avoid data loss.
-* The configuration files and defined commands are ran in alphabetical order. I prefer to use numbers for this since it's easier to visualize & understand which runs after which.
+* Each deploy makes you lose everything you have in the `current` folder. Do not rely on local storage, use S3 instead with CloudFront to avoid data loss.
+* The configuration files and defined commands are run in alphabetical order. I prefer to use numbers for this since it's easier to visualize & understand which runs after which.
 
 # Configuration files
 ## 00_copy_environment_variables.config
