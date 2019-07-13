@@ -68,6 +68,15 @@ It's highly recommended that the `xx_xx_fix_permisions`, `xx_xx_storage_link`, `
 
 PHP allows you to choose the memory limit for your app. You can do so by changing the `memory_limit` option to something right for your app, according to the instance type you're using. It comes pre-packaged with `512M`, but it can be anything.
 
+# Laravel Passport
+Since Laravel Passport uses local storage to keep the public and private key, there is no way of using this method. Instead, you might use what this PR added: https://github.com/laravel/passport/pull/683
+
+In your `.env` file, add the following variables **and make sure that there is a `\\n` for each newline**:
+```
+PASSPORT_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\\nMIIJJwIBAAKCAgEAw3KPag...\\n-----END RSA PRIVATE KEY-----"
+PASSPORT_PUBLIC_KEY="-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOC...\\n-----END PUBLIC KEY-----\\n"
+```
+
 # Run Spot Instances
 Thanks to https://medium.com/@rahul.mamgain/spot-instances-and-elastic-beanstalk-a7ee4c98a32f, you can add a new configuration file within `.ebextensions` and make use of the spot instances. Within the Laravel context, you can make use of it by running additional EC2 instances for queues since it's good to have more and it doesn't require to be up all the time (they're fault-tolreant).
 
