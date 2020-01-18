@@ -29,19 +29,29 @@ This is the place where the cronfile for `php artisan schedule:run` is configure
 Some commands need to be run after the deployment takes place. For example, restarting supervisor processes. Aditionally, all `cache` commands (`config:cache`, `route:cache` and `view:cache`) are re-run here (they are run also in `01_deploy.config`) due to a permission bug that is unknown.
 
 ## 00_install_supervisord.config
-Supervisord is used to hold up queues, but mostly for daemonized processes, in general. It comes pre-packaged with a config for Laravel Horizon. You can just delete the `/tmp/horizon.conf` file creation within `files` and add your own configuration, but make sure to change the `mv` command within the `container_commands`:
+Supervisord is used to hold up queues, but mostly for daemonized processes, in general. It comes pre-packaged with a config for Laravel Horizon. You can just delete the `/tmp/laravel.conf` file creation within `files` and add your own configuration, but make sure to change the `mv` command within the `container_commands`:
 
 ```config
 files:
   ...
-  "/tmp/queues.conf":
+  "/tmp/laravel.conf":
     mode: "000755"
     owner: root
     group: root
     content: |
-      [program:queues]
+      [program:horizon]
       process_name=%(program_name)s_%(process_num)02d
       command=php /var/app/current/artisan queue:work
+      autostart=true
+      autorestart=true
+      user=root
+      numprocs=1
+      redirect_stderr=true
+      stdout_logfile=/dev/null
+
+      [program:echo-server]
+      process_name=%(program_name)s_%(process_num)02d
+      command=laravel-echo-server start
       autostart=true
       autorestart=true
       user=root
@@ -55,9 +65,11 @@ container_commands:
   01_01_copy_supervisor_configuration_files:
     command: |
       sudo mv /tmp/supervisord.conf /etc/supervisord.conf
-      sudo mv /tmp/queues.conf /etc/supervisor/conf.d/queues.conf # this line here
+      sudo mv /tmp/laravel.conf /etc/supervisor/conf.d/laravel.conf # this line here
 ...
 ```
+
+Keep in mind that you can add as many `[program:xxxxx]` as you'd like. They will all be read in Supervisor.
 
 ## 01_deploy.config
 This file is the deployment itself. The only thing you have to do is to configure the `container_commands` section with your desired commands to be ran on each deployment. The trick parts here are:
@@ -78,30 +90,7 @@ PASSPORT_PUBLIC_KEY="-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOC..
 ```
 
 # Run Spot Instances
-Thanks to https://medium.com/@rahul.mamgain/spot-instances-and-elastic-beanstalk-a7ee4c98a32f, you can add a new configuration file within `.ebextensions` and make use of the spot instances. Within the Laravel context, you can make use of it by running additional EC2 instances for queues since it's good to have more and it doesn't require to be up all the time (they're fault-tolreant).
-
-Since the EC2 pricing can be the same for more computational power, AWS EB can be configured to run on spot instances. Create a new `.config` file and add the following:
-```config
-Resources:
-  AWSEBAutoScalingLaunchConfiguration:
-    Type: "AWS::AutoScaling::LaunchConfiguration"
-    Properties:
-      SpotPrice:
-        "Fn::GetOptionSetting":
-          Namespace: "aws:elasticbeanstalk:application:environment"
-          OptionName: "EC2_SPOT_PRICE"
-          DefaultValue: {"Ref":"AWS::NoValue"}
-```
-
-Go in your AWS EB environment and add a new environment variable called `EC2_SPOT_PRICE` which can be a maximum allowed price you can pay for a Spot Instance. The request will be made for the current selected instance in your environment, so make sure you check the AWS Spot Advisor (https://console.aws.amazon.com/ec2sp/v1/spot/home?region=us-east-1) by clicking the `Price History` and checking the price for your desired instance.
-
-For example, this is the pricing history for a `r5.large` instance type:
-
-![](images/spot.png)
-
-We can clearly see that the price at a point was `$0.5` while the on-demand price is `$0.12`. We can go easily, without risk, with a value of `0.6` for our variable. The safest value can be `0.1260` since it can't go higher, but there is still risk of termination if AWS decides that the Spot Instances may be used for something at a certain point.
-
-Rely on Spot Instances only for fault-tolerant or batch jobs/workload, like queues for a broadcasting.
+Spot instances can be configured from the console. Check out AWS announcement: https://aws.amazon.com/about-aws/whats-new/2019/11/aws-elastic-beanstalk-adds-support-for-amazon-ec2-spot-instances/
 
 # Deploying with AWS EB CLI
 To deploy to the EB environment, you have two choices:
