@@ -10,7 +10,7 @@ It's highly recommended to upgrade to the Amazon Linux 2 version, since it's fas
 
 To upgrade to AL2 from your Amazon Linux AMI, please see the [Amazon Linux 2 migration guide](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.migration-al.html)
 
-If you still work with Amazon Linux AMI, please switch to the [amazon-ami branch](../../tree/amazon-linux-2) to read the older docs.
+If you still work with Amazon Linux AMI, please switch to the [amazon-ami branch](../../tree/amazon-ami) to read the older docs.
 
 # Packaged
 
