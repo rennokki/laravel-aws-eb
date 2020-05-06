@@ -26,6 +26,16 @@ The sample configuration comes with:
 
 Clone the repo and drop the `.ebextensions` and `.platform` folders in your root project.
 
+Make sure that the .sh files from .ebextensions are executable before deploying your project:
+
+```bash
+$ chmod +x .platform/hooks/prebuild/*.sh
+```
+
+```bash
+$ chmod +x .platform/hooks/postdeploy/*.sh
+```
+
 # AWS EB Should-Know
 
 ## Deployment Stages
