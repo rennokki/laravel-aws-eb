@@ -53,7 +53,7 @@ Each deploy makes you lose everything you have in the `current` folder. **DO NOT
 
 ## .ebextensions/
 
-The `.envextensions` folder contains information about which commands to run during the deployment, such as migrations or copying files in the instance.
+The `.ebextensions` folder contains information about which commands to run during the deployment, such as migrations or copying files in the instance.
 
 In this repo, see `01_deploy.config` for a list of commands that will be ran upon deployment.
 
