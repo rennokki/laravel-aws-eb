@@ -6,5 +6,7 @@
 # to re-run the caches for config, routes and views.
 
 php artisan config:cache
+
 php artisan route:cache
+
 php artisan view:cache
