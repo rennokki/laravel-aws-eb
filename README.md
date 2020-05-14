@@ -84,6 +84,18 @@ PASSPORT_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\\nMIIJJwIBAAKCAgEAw3KPag..
 PASSPORT_PUBLIC_KEY="-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOC...\\n-----END PUBLIC KEY-----\\n"
 ```
 
+## Spatie Media Library & other Imagick-based packages
+
+Some packages require Imagick to run. To enable Imagick installation on the instance
+via Amazon Linux Extras, check `install_imagick.sh` file for details.
+
+## Memcached Auto Discovery
+
+Memcached Auto Discovery for AWS Memcached is a PHP extension that replace the default
+Memcached extension, in order to use Memcached clusters in multi-node mode.
+
+Plese see `install_memcached_discovery.sh` file to enable the installation for your PHP version.
+
 ## Run on Spot Instances
 
 Spot instances are the cheapest EC2 instances from AWS, but they can be terminated
