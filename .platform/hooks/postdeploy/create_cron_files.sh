@@ -12,5 +12,6 @@ echo "* * * * * root /usr/bin/php /var/app/current/artisan schedule:run 1>> /dev
 # might turn out into massive files that will restrict the filesystem.
 # Uncomment the following lines to enable a CRON that deletes the laravel.log file
 # every now and often.
+
 # echo "0 0 * * */7 root rm -rf /var/app/current/storage/logs/laravel.log 1>> /dev/null 2>&1" \
 #     | sudo tee log_deleter
