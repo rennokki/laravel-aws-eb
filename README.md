@@ -22,6 +22,10 @@ The sample configuration comes with:
 - HTTP to HTTPS support
 - Nginx configuration support
 
+# Updating
+
+The repo works with semantic versioning, so please check the [Releases](../../releases) page for latest updates & changes.
+
 # Installation
 
 Clone the repo and drop the `.ebextensions` and `.platform` folders in your root project.
