@@ -37,6 +37,10 @@ $ chmod +x .platform/hooks/prebuild/*.sh
 ```
 
 ```bash
+$ chmod +x .platform/hooks/predeploy/*.sh
+```
+
+```bash
 $ chmod +x .platform/hooks/postdeploy/*.sh
 ```
 
