@@ -104,6 +104,24 @@ Memcached Auto Discovery for AWS Memcached is a PHP extension that replace the d
 
 Plese see `install_memcached_discovery.sh` file to enable the installation for your PHP version.
 
+For the Laravel app, edit your `memcached` connection in `cache.php` to make it suitable for multi-node configuration:
+
+```php
+'memcached' => [
+    'driver' => 'memcached',
+    
+    'options' => array_merge([
+        Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
+        Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
+        Memcached::OPT_SERIALIZER => Memcached::SERIALIZER_PHP,
+    ], in_array(env('APP_ENV'), ['production', 'staging']) ? [
+        Memcached::OPT_CLIENT_MODE => Memcached::DYNAMIC_CLIENT_MODE,
+    ] : []),
+]
+```
+
+**For production & staging workloads (when AWS Elasticache is used), `Memcached::OPT_CLIENT_MODE` should be set. `OPT_CLIENT_MODE` and `DYNAMIC_CLIENT_MODE` are Memcached Auto Discovery extension-related constants, not available in the default Memcached extension.**
+
 ## Run on Spot Instances
 
 Spot instances are the cheapest EC2 instances from AWS, but they can be terminated
