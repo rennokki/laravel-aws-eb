@@ -110,6 +110,8 @@ For the Laravel app, edit your `memcached` connection in `cache.php` to make it 
 'memcached' => [
     'driver' => 'memcached',
     
+    'persistent_id' => env('MEMCACHED_PERSISTENT_ID', 1), // make sure you also set a default to the persistent_id
+    
     'options' => array_merge([
         Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
         Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
