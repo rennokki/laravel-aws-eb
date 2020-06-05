@@ -30,7 +30,7 @@ The repo works with semantic versioning, so please check the [Releases](../../re
 
 Clone the repo and drop the `.ebextensions` and `.platform` folders in your root project.
 
-Make sure that the .sh files from .ebextensions are executable before deploying your project:
+Make sure that the .sh files from the `.platform` folder are executable before deploying your project:
 
 ```bash
 $ chmod +x .platform/hooks/prebuild/*.sh
