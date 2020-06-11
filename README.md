@@ -21,6 +21,7 @@ The sample configuration comes with:
 - Supervisor for Queues
 - HTTP to HTTPS support
 - Nginx configuration support
+- Chromium binary
 
 # Updating
 
@@ -123,6 +124,14 @@ For the Laravel app, edit your `memcached` connection in `cache.php` to make it 
 ```
 
 **For production & staging workloads (when AWS Elasticache is used), `Memcached::OPT_CLIENT_MODE` should be set. `OPT_CLIENT_MODE` and `DYNAMIC_CLIENT_MODE` are Memcached Auto Discovery extension-related constants, not available in the default Memcached extension.**
+
+## Chromium binary support
+
+Some Laravel apps, like crawlers, might need a Chrome binary to run upon. A good example is [spatie/browsershot](https://github.com/spatie/browsershot#custom-chromechromium-executable-path). It lets you take browser screenshots using PHP and a Chromium binary.
+
+To install Chromium, seek for the `install_latest_chromium_binary.sh` script and uncomment the code.
+
+The binary can be then accessed from `/usr/bin/google-chrome-stable`
 
 ## Run on Spot Instances
 
