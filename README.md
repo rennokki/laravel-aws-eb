@@ -140,6 +140,12 @@ anytime. Please refer to this to understand how they can be used: https://docs.a
 
 Spot instances can be configured from the console. Check out AWS announcement: https://aws.amazon.com/about-aws/whats-new/2019/11/aws-elastic-beanstalk-adds-support-for-amazon-ec2-spot-instances/
 
+# Multi-environment
+
+Sometimes you might have more than one environment, for example production and staging. Having duplicate configuration can be tricky, but you can workaround this problem by seeking a CloudFromation-like appoach as presented in one of the issues: https://github.com/rennokki/laravel-aws-eb/issues/30#issuecomment-693154271
+
+The idea behind it is to use, for example, `{"Ref": "AWSEBEnvironmentName"}` value to concatenate to the name of the .env file that should be downloaded from S3. This way, you can have `.env.staging-app` if your AWS EB environment name is named `staging-app`.
+
 # Deploying from the CI/CD Pipeline
 
 To deploy to the EB environment, you have two choices:
