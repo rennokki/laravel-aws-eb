@@ -1,3 +1,5 @@
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R6R42U8CL)
+
 # Laravel Elastic Beanstalk
 
 Laravel EB is a sample configuration to help you deploy a Laravel app on an AWS Elastic Beanstalk PHP environment without any super rockety-like knowledge.
