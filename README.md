@@ -47,6 +47,10 @@ $ chmod +x .platform/hooks/predeploy/*.sh
 $ chmod +x .platform/hooks/postdeploy/*.sh
 ```
 
+```bash
+$ chmod +x .platform/scripts/*.sh
+```
+
 # AWS EB Should-Know
 
 ## Deployment Stages
