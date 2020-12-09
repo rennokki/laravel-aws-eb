@@ -27,10 +27,6 @@ while sleep 5; do
     # Here, the instance knows it will be interrupted.
     # Run your code.
 
-  else
-
-    # Here, the instance is not interrupted.
-
   fi
 
 done
