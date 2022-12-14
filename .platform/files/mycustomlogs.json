@@ -1,0 +1,45 @@
+{
+    "logs": {
+        "logs_collected": {
+            "files": {
+                "collect_list": [
+                    {
+                        "file_path": "/var/log/eb-engine.log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/log/eb-engine.log",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/var/log/eb-hooks.log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/log/eb-hooks.log",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/var/log/nginx/access.log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/log/nginx/access.log",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/var/log/nginx/error.log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/log/nginx/error.log",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/var/log/httpd/access_log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/log/httpd/access_log",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/var/log/httpd/error_log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/log/httpd/error_log",
+                        "log_stream_name": "{instance_id}"
+                    },
+                    {
+                        "file_path": "/var/app/current/storage/logs/*.log",
+                        "log_group_name": "/aws/elasticbeanstalk/<you-environment-name>/var/app/current/storage/logs",
+                        "log_stream_name": "{instance_id}"
+                    }
+                ]
+            }
+        }
+    }
+}
